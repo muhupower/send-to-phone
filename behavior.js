@@ -2,7 +2,52 @@ $(function(){
 
 
 
-//owen  
+	///////////////////////////////////////////
+	//Modal Functions for Phone 
+	///////////////////////////////////////////	
+
+	var $currentId = false;
+	
+	function resizeModal() {
+		if ($currentId === false) return;
+		var winW = $(window).width();
+		$currentId.css('left', winW / 2 - $currentId.width() / 2);
+		var winH = $(window).height();
+		$currentId.css('top', winH / 2 - $currentId.height() / 2);
+	}
+
+		$('a[name=modal]').click(function(e) {
+		$(this).addClass("selected"); 
+		$('html, body').animate({ scrollTop: 0 }, 0);
+		$('#mask').hide(0);
+		$('.window').hide(0);
+		e.preventDefault();	
+		var id = $(this).attr('href');
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+		$('#mask').fadeTo(0,0.8);
+		var winH = $(window).height();
+    	$currentId = $(id);
+		
+		
+    	resizeModal();
+		$currentId.fadeIn(500);
+		$("body, html").css("overflow", "hidden");
+	});	
+		
+	$('.window .close, #mask').click(function (e) {
+		$(".navigation li a").removeClass("selected"); 
+		e.preventDefault();	
+		
+		$('#mask').fadeOut(400);
+		$('.window').fadeOut(0);
+        $currentId = false;
+		$("body, html").css("overflow", "visible");
+	});
+
+	$(window).on('resize',resizeModal);
+	
+	
 
 
 
